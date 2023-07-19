@@ -861,15 +861,17 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 635,
+									"left": 622,
 									"top": 222,
+									"width": 27.1044921875,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
 									"hostEdge": {
 										"$ref": "AAAAAAGJbV3MAIk4K4M="
 									},
-									"edgePosition": 2
+									"edgePosition": 2,
+									"text": "+0..*"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -912,7 +914,7 @@
 										"$ref": "AAAAAAGJbV3MAIk4K4M="
 									},
 									"edgePosition": 2,
-									"text": "0..1"
+									"text": "0..*"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -964,16 +966,16 @@
 										"$ref": "AAAAAAGJbV3MAIk2W5M="
 									},
 									"font": "Arial;13;0",
-									"left": 768,
+									"left": 767,
 									"top": 250,
-									"width": 19.5126953125,
+									"width": 21.68359375,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
 									"hostEdge": {
 										"$ref": "AAAAAAGJbV3MAIk4K4M="
 									},
-									"text": "0..*"
+									"text": "0..1"
 								},
 								{
 									"_type": "UMLQualifierCompartmentView",
@@ -1892,7 +1894,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVpe0IgugSk="
 							},
-							"name": "id"
+							"name": "id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -1900,7 +1903,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVpe0IgugSk="
 							},
-							"name": "name"
+							"name": "name",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -1908,7 +1912,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVpe0IgugSk="
 							},
-							"name": "mail"
+							"name": "mail",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -1916,7 +1921,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVpe0IgugSk="
 							},
-							"name": "pwd"
+							"name": "pwd",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -1933,7 +1939,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVpe0IgugSk="
 							},
-							"name": "adress"
+							"name": "adress",
+							"type": ""
 						}
 					]
 				},
@@ -1960,7 +1967,7 @@
 								"reference": {
 									"$ref": "AAAAAAGJbVqrF4hYYgY="
 								},
-								"multiplicity": "0..1"
+								"multiplicity": "0..*"
 							},
 							"end2": {
 								"_type": "UMLAssociationEnd",
@@ -1971,7 +1978,7 @@
 								"reference": {
 									"$ref": "AAAAAAGJbVrtv4iCEnI="
 								},
-								"multiplicity": "0..*"
+								"multiplicity": "0..1"
 							}
 						}
 					],
@@ -1982,7 +1989,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVqrF4hYYgY="
 							},
-							"name": "id"
+							"name": "id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -1990,7 +1998,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVqrF4hYYgY="
 							},
-							"name": "label"
+							"name": "label",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -1998,7 +2007,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVqrF4hYYgY="
 							},
-							"name": "quantity"
+							"name": "quantity",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -2006,7 +2016,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVqrF4hYYgY="
 							},
-							"name": "priceHT"
+							"name": "priceHT",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -2033,7 +2044,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVrtv4iCEnI="
 							},
-							"name": "id"
+							"name": "id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -2041,7 +2053,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbVrtv4iCEnI="
 							},
-							"name": "label"
+							"name": "label",
+							"type": ""
 						}
 					]
 				},
@@ -2090,7 +2103,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbWPtzosh0lY="
 							},
-							"name": "id"
+							"name": "id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -2098,7 +2112,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGJbWPtzosh0lY="
 							},
-							"name": "label"
+							"name": "label",
+							"type": ""
 						}
 					]
 				},
