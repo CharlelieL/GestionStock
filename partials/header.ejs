@@ -1,0 +1,28 @@
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded"
+    style="margin-bottom: 2em">
+    <div class="container col-sm-6">
+        <button class="navbar-toggler navbar-toggler-right" type="button"
+            data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">DayLogApp</a>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                <% if(typeof loggedIn == 'undefined') { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/register">Register</a>
+                    </li>
+                <% } else if(loggedIn) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/logout">Logout</a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
