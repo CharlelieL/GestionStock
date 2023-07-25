@@ -2,29 +2,67 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const db = require('./models/db.js'); // Path to your central Sequelize file (db.js)
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const path = require('path'); // Add this line to import the path module
+const flash = require('connect-flash');
+const session = require('express-session');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+//app.use("/api/auth", require("./auth/route.js"))
+
+app.set('view engine', 'ejs'); // This line is important to set EJS as the view engine
+app.set('views', path.join(__dirname, 'views'));
+require('./configs/passport.js')(passport);
+
 
 
 app.get('/', (req, res) => {
     res.send('Bienvenue sur mon serveur Node.js!');
 });
 
-app.listen(PORT, () => {
-    console.log(`Serveur démarré sur http://localhost:${PORT}`);
-});
+
+app.use(session({
+  secret: 'shhsecret',
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+// Routes for login, register, dashboard and error
+app.use('/', require('./routes/login'));
+console.log("app.use('/', require('./routes/login'));")
+
+app.use('/', require('./routes/register')); //**NOT IMPLEMENTED YET**
+console.log("app.use('/', require('./routes/register'));")
+
+app.use('/', require('./routes/dashboard'));
+console.log("app.use('/', require('./routes/dashboard'));")
+
+app.use('/', require('./routes/error'));
+console.log("app.use('/', require('./routes/error'));")
+
+
 
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Quelque chose a mal tourné !');
+  console.error(err.stack);
+  res.status(500).render('error'); // Render the error.ejs page for internal server errors (500)
+  next();
 });
 
 // Function to create a new record for each class and test its functionality
 async function testClasses() {
   try {
     // Test Company
+    let hashedPassword = db.Company.prototype.generateHash('password123'); //Don't forget to add the Hash during register
+    console.log(hashedPassword);
     const newCompany = await db.Company.create({
       name: 'Example Company',
       mail: 'example@example.com',
-      pwd: 'password123',
+      pwd: hashedPassword,
     });
     console.log('New company created:', newCompany.toJSON());
 
@@ -83,5 +121,9 @@ async function testClasses() {
   }
 }
 
+
+app.listen(PORT, () => {
+  console.log(`Serveur démarré sur http://localhost:${PORT}`);
+});
 // Call the function to test classes
-testClasses();
+//testClasses();

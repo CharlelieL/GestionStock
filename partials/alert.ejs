@@ -1,0 +1,5 @@
+<% if(typeof errors !== "undefined") { %>
+    <%= errors.find(error => error.param === field).msg %>
+<% } else { %>
+    <%= message %>
+<% } %>
