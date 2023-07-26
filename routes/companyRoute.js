@@ -1,21 +1,12 @@
-'use strict';
+const express = require('express');
+const router = express.Router();
+const companyController = require('../controllers/companyController');
 
-var express = require('express');
-var router = express.Router();
-var database = require('../config/dbConfig.js');
-
-var CompanyController = require('../controller/companyController.js');
-
-router.get('/', CompanyController.index);
-
-router.get('/register', CompanyController.showRegister);
-
-router.post('/register', CompanyController.register);
-
-router.get('/login', CompanyController.showLogin);
-
-router.post('/login', CompanyController.login);
-
-router.get('/logout', CompanyController.logout);
+router.get('/', companyController.index);
+router.get(REGISTER_URL, companyController.showRegister);
+router.post(REGISTER_URL, companyController.register);
+router.get(LOGIN_URL, companyController.showLogin);
+router.post(LOGIN_URL, companyController.login);
+router.get('/logout', companyController.logout);
 
 module.exports = router;

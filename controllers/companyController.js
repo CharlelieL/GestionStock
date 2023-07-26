@@ -1,21 +1,18 @@
 'use strict';
 
-var passport = require('passport');
-
-var companyModel = require('../model/companyModel.js');
-var constants = require('../config/constants');
-
+const passport = require('passport');
+const companyModel = require('../models/companyModel.js');
 const LOGIN_URL = "/login";
 const REGISTER_URL = "/register";
 const FORM_VIEW = "/form";
 
-var companyController = {
-    index: (request, response) => {
+class CompanyController {
+    index(request, response) {
         response.render('index');
-    },
+    }
 
-    showRegister: (request, response) => {
-        if(request.isAuthenticated()) {
+    showRegister(request, response) {
+        if (request.isAuthenticated()) {
             response.redirect('/');
         } else {
             response.render(FORM_VIEW, {
@@ -25,18 +22,20 @@ var companyController = {
                 action: REGISTER_URL
             });
         }
-    },
+    }
 
-    register: passport.authenticate('register', {
-        successRedirect: '/',
-        failureRedirect: REGISTER_URL,
-        operation: "Register",
-        action: REGISTER_URL,
-        failureFlash: true,
-    }),
+    register(request, response, next) {
+        passport.authenticate('register', {
+            successRedirect: '/',
+            failureRedirect: REGISTER_URL,
+            failureFlash: true,
+            operation: "Register",
+            action: REGISTER_URL,
+        })(request, response, next);
+    }
 
-    showLogin: (request, response) => {
-        if(request.isAuthenticated()) {
+    showLogin(request, response) {
+        if (request.isAuthenticated()) {
             response.redirect('/');
         } else {
             response.render(FORM_VIEW, {
@@ -46,18 +45,20 @@ var companyController = {
                 action: LOGIN_URL
             });
         }
-    },
+    }
 
-    login: passport.authenticate('login', {
-        successRedirect: '/',
-        failureRedirect: LOGIN_URL,
-        failureFlash: true,
-    }),
+    login(request, response, next) {
+        passport.authenticate('login', {
+            successRedirect: '/',
+            failureRedirect: LOGIN_URL,
+            failureFlash: true,
+        })(request, response, next);
+    }
 
-    logout: (request, response) => {
+    logout(request, response) {
         request.logout();
         response.redirect('/');
     }
-};
+}
 
-module.exports = companyController;
+module.exports = new CompanyController();
