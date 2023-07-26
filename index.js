@@ -32,6 +32,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+
+const companyController = require('./controllers/companyController');
+app.get('/', companyController.index);
+app.get('/showRegister', companyController.showRegister);
+app.post('/register', companyController.register);
+app.get('/showLogin', companyController.showLogin);
+app.get('/logout', companyController.logout);
+
+
 // Routes for login, register, dashboard and error
 app.use('/', require('./routes/login'));
 console.log("app.use('/', require('./routes/login'));")
