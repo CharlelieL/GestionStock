@@ -17,7 +17,11 @@ router.post('/login', (req, res, next) => {
             return next(err);
         }
         if (!user) {
-            console.log('Authentication failed:', info.message);
+            if (info && info.message) {
+                console.log('Authentication failed:', info.message);
+            } else {
+                console.log('Authentication failed, but no specific message was provided.');
+            }
             return res.redirect('/error');
         }
         req.logIn(user, (err) => {
