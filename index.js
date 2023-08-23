@@ -18,7 +18,7 @@ require('./configs/passport.js')(passport);
 
 
 app.get('/', (req, res) => {
-    res.send('Bienvenue sur mon serveur Node.js!');
+  res.redirect('/login');
 });
 
 
