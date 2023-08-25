@@ -4,7 +4,7 @@
   "description": "Projet de gestion de stocks de diverses entreprises",
   "main": "index.js",
   "engines": {
-    "node": ">=18.17"
+    "node": ">=15.17"
   },
   "scripts": {
     "test": "NODE_ENV=test jest",
