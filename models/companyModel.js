@@ -28,13 +28,15 @@ let Company = sequelize.define('Company', {
   },
 });
 
-Company.prototype.generateHash = function (pwd) {
-  return bcrypt.hashSync(pwd, bcrypt.genSaltSync(8), null);
-};
+if (process.env.NODE_ENV !== 'test') {
+  Company.prototype.generateHash = function (pwd) {
+    return bcrypt.hashSync(pwd, bcrypt.genSaltSync(8), null);
+  };
 
-Company.prototype.validPassword = function (pwd) {
-  return bcrypt.compareSync(pwd, this.pwd);
-};
+  Company.prototype.validPassword = function (pwd) {
+    return bcrypt.compareSync(pwd, this.pwd);
+  };
+}
 
 Company.sync({ force: false })
   .then(() => {
