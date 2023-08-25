@@ -18,7 +18,8 @@ const Good = sequelize.define('Good', {
   priceHT: {
     type: DataTypes.FLOAT,
     allowNull: false,
-  },
+  }
+
 });
 
   module.exports = Good;
