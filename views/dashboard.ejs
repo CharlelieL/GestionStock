@@ -18,14 +18,11 @@
     integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
 <body>
-    <h1>YOUHOU !Tu es CONNECTEEEE MON FREROOOOW</h1>
-    <p>DE RIEN FRERE.</p>
-
 
     <div class="container">
 
         <div class="position-relative mt-3 mb-5">
-            <h1 class="text-center text-uppercase">LISTE DES TÂCHES</h1>
+            <h1 class="text-center text-uppercase">LISTE DES BIENS</h1>
             <div class="position-absolute top-0 end-0 mt-2">
                 <a href="" class="btn btn-outline-dark">
                     ME DECONNECTER
@@ -34,7 +31,7 @@
         </div>
     
         <div class="text-end mb-2 mt-5">
-            <a class="btn btn-success" href="">NOUVEAU BIEN</a>
+            <a class="btn btn-success" href="">NOUVEAU </a>
         </div>
     
         <table class="table mb-4">
@@ -49,19 +46,7 @@
             </tr>
             </thead>
             <tbody>
-            <% for(const good of goods) { %>
-                <tr>
-                    <td><%= good.label %></td>
-                    <td><%= good.priceHT%></td>
-                    <td><%= good.quantity %></td>
-                    <td><%= good.type %></td>
-                    <td><%= good.department %></td>
-                    <td>
-                        <a class="btn btn-warning" href="">MODIFIER</a>
-                        <button data-id="<%= task.id %>" class="btn btn-danger">SUPPRIMER</button>
-                    </td>
-                </tr>
-            <% } %>
+        
             </tbody>
         </table>
     
