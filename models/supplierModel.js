@@ -25,10 +25,5 @@ const Supplier = sequelize.define('Supplier', {
   },
 });
 
-Supplier.sync({ force: false })
-  .then(() => {
-    console.log('Supplier table created (if not existed)');
-  })
-  .catch((err) => console.error('Error creating Supplier table:', err));
 
 module.exports = Supplier;

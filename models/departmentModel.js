@@ -13,10 +13,4 @@ const Department = sequelize.define('Department', {
   },
 });
 
-Department.sync({ force: false })
-  .then(() => {
-    console.log('Department table created (if not existed)');
-  })
-  .catch((err) => console.error('Error creating Department table:', err));
-
 module.exports = Department;
