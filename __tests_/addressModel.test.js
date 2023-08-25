@@ -2,8 +2,6 @@ const { Sequelize, DataTypes } = require('sequelize');
 let Address;
 let Company;
 
-//const RealCompany = jest.requireActual('../models/companyModel'); 
-
 beforeEach(() => {
   Address = require('../models/addressModel'); 
   mockAddressCreate.mockClear();

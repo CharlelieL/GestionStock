@@ -2,15 +2,17 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const db = require('./models/db.js'); // Path to your central Sequelize file (db.js)
+const sequelize = require('./configs/dbConfig.js');
+const { Company, Good, Type, Department, Supplier, Subscription, Address } = require('./models/db');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const path = require('path'); // Add this line to import the path module
 const flash = require('connect-flash');
 const session = require('express-session');
+
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
-//app.use("/api/auth", require("./auth/route.js"))
-
 app.set('view engine', 'ejs'); // This line is important to set EJS as the view engine
 app.set('views', path.join(__dirname, 'views'));
 require('./configs/passport.js')(passport);
@@ -45,7 +47,7 @@ app.get('/logout', companyController.logout);
 app.use('/', require('./routes/login'));
 console.log("app.use('/', require('./routes/login'));")
 
-app.use('/', require('./routes/register')); //**NOT IMPLEMENTED YET**
+app.use('/', require('./routes/register'));
 console.log("app.use('/', require('./routes/register'));")
 
 app.use('/', require('./routes/dashboard'));
@@ -55,6 +57,18 @@ app.use('/', require('./routes/error'));
 console.log("app.use('/', require('./routes/error'));")
 
 
+//Add a Sync route
+// WARNING ! Going there *HARD RESET* DATABASE
+// !!! WARNING ! REMOVE BEFORE PRODUCTION !!!
+app.get('/sync', function (req, res) {
+  sequelize.sync({ force: true }).then(() => {
+      console.log('sync done');
+      res.status(200).send('sync done');
+  }).catch(error => {
+      console.log('there was a problem:', error);
+      res.status(500).send('there was a problem');
+  });
+});
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -130,9 +144,25 @@ async function testClasses() {
   }
 }
 
-
-app.listen(PORT, () => {
-  console.log(`Serveur démarré sur http://localhost:${PORT}`);
-});
 // Call the function to test classes
 //testClasses();
+
+// Syncing process
+Type.sync()
+  .then(() => Supplier.sync())
+  .then(() => Address.sync())
+  .then(() => Company.sync())
+  .then(() => Department.sync())
+  .then(() => Good.sync())
+  .then(() => Subscription.sync())
+  .then(() => {
+// Start your server after syncing    
+app.listen(PORT, () => {
+      console.log(`Server started on http://localhost:${PORT}`);
+    });
+  })
+  .catch(error => {
+    console.error("Error syncing models:", error);
+  });
+
+

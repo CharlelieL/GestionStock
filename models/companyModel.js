@@ -20,9 +20,6 @@ let Company = sequelize.define('Company', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  Attribute1: {
-    type: DataTypes.STRING, // Replace "STRING" with the appropriate data type for Attribute1
-  },
   logo: {
     type: DataTypes.STRING,
   },

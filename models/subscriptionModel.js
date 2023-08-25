@@ -9,10 +9,5 @@ const Subscription = sequelize.define('Subscription', {
   },
 });
 
-Subscription.sync({ force: false })
-  .then(() => {
-    console.log('Subscription table created (if not existed)');
-  })
-  .catch((err) => console.error('Error creating Subscription table:', err));
 
   module.exports = Subscription;
