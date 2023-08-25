@@ -7,7 +7,6 @@ beforeEach(() => {
   mockAddressCreate.mockClear();
 });
 
-//const mockCreate = jest.fn();
 const mockAddressCreate = jest.fn().mockImplementation((data) => Promise.resolve(data));
 jest.mock('../models/addressModel', () => {
   return {

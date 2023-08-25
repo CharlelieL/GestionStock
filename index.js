@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = 3000 + (process.env.NODE_APP_INSTANCE ? Number(process.env.NODE_APP_INSTANCE) : 0);
 const db = require('./models/db.js'); // Path to your central Sequelize file (db.js)
 const sequelize = require('./configs/dbConfig.js');
 const { Company, Good, Type, Department, Supplier, Subscription, Address } = require('./models/db');
