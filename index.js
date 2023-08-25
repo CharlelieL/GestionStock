@@ -4,7 +4,7 @@ const redis = require('redis');
 const RedisStore = require('connect-redis').default;
 
 const app = express();
-const PORT = 3000 + (process.env.NODE_APP_INSTANCE ? Number(process.env.NODE_APP_INSTANCE) : 0);
+const PORT = 3000 + (process.env.NODE_APP_INSTANCE ? Number(process.env.NODE_APP_INSTANCE) : 0); //Dynamic PORT for each Cluster
 const db = require('./models/db.js');
 const sequelize = require('./configs/dbConfig.js');
 const { Company, Good, Type, Department, Supplier, Subscription, Address } = require('./models/db');
@@ -48,10 +48,12 @@ app.get('/', (req, res) => {
   res.redirect('/login');
 });
 
+//Passport
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+//Controllers
 const companyController = require('./controllers/companyController');
 app.get('/', companyController.index);
 app.get('/showRegister', companyController.showRegister);
@@ -59,11 +61,15 @@ app.post('/register', companyController.register);
 app.get('/showLogin', companyController.showLogin);
 app.get('/logout', companyController.logout);
 
+//Routes
 app.use('/', require('./routes/login'));
 app.use('/', require('./routes/register'));
 app.use('/', require('./routes/dashboard'));
 app.use('/', require('./routes/error'));
 
+//Add a Sync route
+// WARNING ! Going there *HARD RESET* DATABASE
+// !!! WARNING ! REMOVE BEFORE PRODUCTION !!!
 app.get('/sync', function (req, res) {
   sequelize.sync({ force: true }).then(() => {
     console.log('sync done');
@@ -80,6 +86,8 @@ app.use((err, req, res, next) => {
   next();
 });
 
+
+//Syncing process to database
 Type.sync()
   .then(() => Supplier.sync())
   .then(() => Address.sync())
