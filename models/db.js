@@ -9,6 +9,8 @@ const Subscription = require('./subscriptionModel.js');
 const Address = require('./addressModel.js');
 
 // Define the relationships between models
+console.log(Company);
+console.log(Department);
 
 // Company-Department (Many-to-Many) Relationship
 Company.belongsToMany(Department, { through: 'CompanyDepartment' });

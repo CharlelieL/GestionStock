@@ -29,15 +29,5 @@ const Address = sequelize.define('Address', {
   },
 });
 
-function initializeAddress() {
-  Address.sync({ force: false })
-    .then(() => {
-      console.log('Address table created (if not existed)');
-    })
-    .catch((err) => console.error('Error creating Address table:', err));
-}
 
-module.exports = {
-  Address,
-  initializeAddress
-};
+module.exports = Address;
