@@ -1,88 +1,145 @@
-GestionStock - Simple Stock Management SaaS Web App
+  
 
-GestionStock is a straightforward and easy-to-use SaaS web application designed to help you manage your stocks efficiently. Whether you are keeping track of chairs, tools, or any other inventory items, GestionStock has got you covered. The application is built using Node.js and MySQL, with Sequelize as the ORM for seamless database interaction.
-Table of Contents
+# GestionStock - Enhanced Stock Management SaaS Web App
 
-    Getting Started
-        Prerequisites
-        Installation
-    Usage
-        Running the Application
-        Testing
-    Contributing
-    License
+GestionStock is a robust and intuitive SaaS web application crafted to streamline your stock management tasks. Tailored for diverse businesses, this platform ensures seamless tracking of any inventory items, be it chairs, tools, or other goods. Powered by Node.js and coupled with MySQL, GestionStock leverages Sequelize for efficient database operations.
 
-Getting Started
-Prerequisites
+## Table of Contents
 
-To run this project, ensure you have the following installed on your machine:
+- [Technologies and Libraries](#technologies-and-libraries)
 
-    Node.js (version 14 or higher)
-    MySQL database
+- [Getting Started](#getting-started)
 
-Installation
+  - [Prerequisites](#prerequisites)
 
-    Clone the GitHub repository:
+  - [Installation](#installation)
 
-    bash
+- [Usage](#usage)
 
-git clone https://github.com/your-username/gestionstock.git
-cd gestionstock
+  - [Running the Application](#running-the-application)
 
-Install the dependencies using npm:
+  - [Testing](#testing)
 
-bash
+  - [Advanced Commands](#advanced-commands)
+  
+
+## Technologies and Libraries
+
+- **Backend**: Node.js
+
+- **Database**: MySQL with Sequelize ORM
+
+- **Authentication**: Passport, bcrypt
+
+- **Template Engine**: EJS
+
+- **Server**: Express.js
+
+- **Other Libraries**:
+
+  - Connect-flash
+
+  - Connect-redis
+
+  - Express-rate-limit
+
+  - Express-session
+
+  - Helmet
+
+  - Redis
+
+  
+
+## Getting Started
+
+  
+
+### Prerequisites
+
+  
+
+Ensure the following software is installed on your machine:
+
+- Node.js (version 15.17 or higher)
+
+- MySQL database
+
+  
+
+### Installation
+
+  
+
+1. Clone the GitHub repository:
+
+```bash
+
+git clone https://github.com/CharlelieL/GestionStock.git
+
+cd GestionStock
+
+```
+
+  
+
+2. Install the project dependencies:
+
+```bash
 
 npm install
 
-Set up the database:
+```
 
-    Create a new MySQL database for the application.
-    Update the database configuration in config/config.json with your MySQL credentials.
+  
 
-json
+3. Set up the database:
 
-// config/config.json
-{
-  "development": {
-    "username": "your-mysql-username",
-    "password": "your-mysql-password",
-    "database": "your-database-name",
-    "host": "localhost",
-    "dialect": "mysql"
-  },
-  // Add other environments if necessary
-}
+   - Create a new MySQL database for the application.
 
-Run the database migrations to set up the tables:
+   - Update the database configuration in `configs/dbConfig.js` with your MySQL credentials.
 
-bash
+  
 
-    npx sequelize-cli db:migrate
+4. Apply the database migrations to initialize the tables:
 
-Usage
-Running the Application
+```bash
 
-To start the GestionStock application, run the following command:
+npx sequelize-cli db:migrate
 
-bash
+```
+
+
+## Usage  
+
+### Running the Application
+
+To fire up the GestionStock application, utilize the following command:
+
+```bash
 
 npm start
 
-The application will be accessible at http://localhost:3000/.
-Testing
+```
 
-To run the test suite, use the following command:
+By default, the application will be accessible at [http://localhost:3000/](http://localhost:3000/).
 
-bash
+### Testing
+
+To activate the test suite, input the command below:
+
+```bash
 
 npm test
 
-Contributing
+```
 
-We welcome contributions from the community! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request. For major changes, please open an issue first to discuss the changes.
+### Advanced Commands
 
-Before contributing, please review the Contributing Guidelines for more information.
-License
+If you're looking to manage your Node.js processes and keep them alive forever, you can use `pm2`:
 
-This project is licensed under the MIT License. Feel free to use and modify the code as per the terms of the license.
+```bash
+
+pm2 start process.yml
+
+```
