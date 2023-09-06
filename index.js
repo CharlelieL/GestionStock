@@ -18,9 +18,13 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 require('./configs/passport.js')(passport);
-
+require('dotenv').config();
+const redisurl= process.env.REDDIS_URL;
+console.log(redisurl);
 // Initialize and connect Redis Client
-const redisClient = redis.createClient();
+const redisClient = redis.createClient({
+url: redisurl
+});
 redisClient.connect().catch(console.error);
 
 
