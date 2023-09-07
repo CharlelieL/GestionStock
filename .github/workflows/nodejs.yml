@@ -96,8 +96,10 @@ jobs:
         terraform init --backend-config=./backend.tfvars -reconfigure
     - name: Terraform plan
       run: |
+        cd ./terraform
         terraform plan --var-file ./input.tfvars
     - name: Terraform apply
       run: |
+        cd ./terraform
         terraform apply -auto-approve --var-file ./input.tfvars
 
