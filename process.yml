@@ -1,0 +1,8 @@
+apps:
+  - script: index.js
+    watch: true
+    ignore_watch: ["node_modules", "logs", "other_dir_to_ignore"]
+    instances: 2
+    exec_mode: cluster
+    env:
+      NODE_ENV: development
