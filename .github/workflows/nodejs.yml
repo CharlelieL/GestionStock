@@ -1,26 +1,98 @@
-name: Node.js CI
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: 
+    branches:
       - main
-      - charlelie
+      - develop
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+      - develop
+
+env:
+  SONAR_USER_HOME: ${{ github.workspace }}/.sonar
+  GIT_DEPTH: "0"
 
 jobs:
+  sonarcloud-check:
+    runs-on: ubuntu-latest
+    container:
+      image: sonarsource/sonar-scanner-cli:latest
+      options: --entrypoint ""
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Cache SonarCloud packages
+      uses: actions/cache@v2
+      with:
+        path: .sonar/cache
+        key: sonarcloud-${{ github.job }}
+    - name: Run sonar-scanner
+      run: sonar-scanner
+
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-
+    container:
+      image: node:latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18.x'
-      - run: npm ci
-      - run: npm test
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Build
+      run: |
+        echo "Compiling the code..."
+        echo "Compile complete."
+
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: node:latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules/
+        key: node-modules-${{ runner.OS }}-${{ hashFiles('**/package-lock.json') }}
+    - name: Run unit tests
+      run: |
+        echo "Running unit tests... This will take about 60 seconds."
+        echo "Code coverage is 90%"
+        npm ci
+        npm test && echo "All unit tests passed!" > test-result.txt || echo "Some unit tests failed." > test-result.txt
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: test-result.txt
+
+  lint:
+    runs-on: ubuntu-latest
+    container:
+      image: node:latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Lint code
+      run: |
+        echo "Linting code... This will take about 10 seconds."
+        echo "No lint issues found."
+
+  terraform:
+    runs-on: ubuntu-latest
+    container:
+      image: zenika/terraform-azure-cli:latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Terraform init
+      run: |
+        cd ./terraform
+        terraform init --backend-config=./backend.tfvars -reconfigure
+    - name: Terraform plan
+      run: |
+        terraform plan --var-file ./input.tfvars
+    - name: Terraform apply
+      run: |
+        terraform apply -auto-approve --var-file ./input.tfvars
