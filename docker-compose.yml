@@ -11,15 +11,16 @@ services:
       - db
     environment:
       - REDIS_HOST=redis
-      - DATABASE_HOST=db
+      - DATABASE_HOST=gestionstock-server.mariadb.database.azure.com  # e.g., my-mariadb-server.mariadb.database.azure.com
       - DATABASE_PORT=3306
       - DATABASE_NAME=gestionProjet
-      - DATABASE_USER=user
-      - DATABASE_PASSWORD=password
+      - DATABASE_USER=adminuser@gestionstock-server   # The format is usually <login>@<FQDN>
+      - DATABASE_PASSWORD=Pa5Ddzaffez*49--8    # The password you set in the Terraform script
       - REDDIS_URL=redis://redis:6379
     volumes:
       - .:/usr/src/app
       - node_modules:/node_modules
+      - ./ssl/DigiCertGlobalRootCA.crt.pem:/etc/ssl/certs/DigiCertGlobalRootCA.crt.pem:ro
     networks:
       - app
   

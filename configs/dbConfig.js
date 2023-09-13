@@ -1,16 +1,28 @@
-const { Sequelize } = require('sequelize');
+ const { Sequelize } = require('sequelize');
+ const fs = require('fs');
 
-const dbservice = process.env.DATABASE_HOST;
-const dbport = process.env.DATABASE_PORT;
-const dbname = process.env.DATABASE_NAME;
-const dbuser = process.env.DATABASE_USER;
-const dbPassword = process.env.DATABASE_PASSWORD;
 
-const sequelize = new Sequelize(dbname, dbuser, dbPassword, {
-    host: dbservice,
+console.log("DB User:", process.env.DATABASE_USER);
+console.log("DB Password:", process.env.DATABASE_PASSWORD);
+console.log("DB Host:", process.env.DATABASE_HOST);
+console.log("DB Port:", process.env.DATABASE_PORT);
+console.log("DB Name:", process.env.DATABASE_NAME);
+
+const encodedUser = encodeURIComponent(process.env.DATABASE_USER);
+const encodedPassword = encodeURIComponent(process.env.DATABASE_PASSWORD);
+
+const dbConnectionString = `mysql://${encodedUser}:${encodedPassword}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}?sslca=${__dirname}/../ssl/DigiCertGlobalRootCA.crt.pem`;
+
+console.log(dbConnectionString);
+
+const sequelize = new Sequelize(dbConnectionString, {
     dialect: 'mysql',
-    port: dbport,
     logging: console.log,
+    dialectOptions: {
+        ssl: {
+            rejectUnauthorized: false
+        }
+    }
 });
 
 module.exports = sequelize;
