@@ -13,6 +13,8 @@ on:
 env:
   SONAR_USER_HOME: ${{ github.workspace }}/.sonar
   GIT_DEPTH: "0"
+  TF_LOG: "DEBUG"
+
 
 jobs:
   sonarcloud-check:
@@ -59,7 +61,7 @@ jobs:
           cd azure-migration
           terraform apply -auto-approve \
             -var="ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}" \
-            -var="ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" \
+            -var="ARM_CLIENT_SECRET=${{ secrets.ARM_CLIENT_SECRET }}" \
             -var="DATABASE_USER=${{ secrets.DATABASE_USER }}" \
             -var="DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" \
             -var="ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}" \
