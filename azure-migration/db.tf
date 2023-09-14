@@ -1,9 +1,22 @@
-provider "azurerm" {
-  features {}
-  ARM_CLIENT_ID = var.ARM_CLIENT_ID
-  skip_provider_registration = true
-}
 variable "ARM_CLIENT_ID" {
+  description = "Azure Client ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "ARM_CLIENT_SECRET" {
+  description = "Azure Client Secret"
+  type        = string
+  sensitive   = true
+}
+
+variable "ARM_TENANT_ID" {
+  description = "Azure Tenant ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "ARM_SUBSCRIPTION_ID" {
   description = "Azure Subscription ID"
   type        = string
   sensitive   = true
@@ -14,10 +27,22 @@ variable "DATABASE_USER" {
   type        = string
   sensitive   = true
 }
+
 variable "DATABASE_PASSWORD" {
   description = "MariaDB Administrator Password"
   type        = string
   sensitive   = true
+}
+
+provider "azurerm" {
+  features {}
+
+  client_id       = var.ARM_CLIENT_ID
+  client_secret   = var.ARM_CLIENT_SECRET
+  tenant_id       = var.ARM_TENANT_ID
+  subscription_id = var.ARM_SUBSCRIPTION_ID
+  
+  skip_provider_registration = true
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -36,12 +61,11 @@ resource "azurerm_mariadb_server" "mariadb" {
   backup_retention_days = 7
   geo_redundant_backup_enabled  = false
 
-  administrator_login          = "var.DATABASE_USER"
-  administrator_login_password = "var.DATABASE_PASSWORD"
+  administrator_login          = var.DATABASE_USER
+  administrator_login_password = var.DATABASE_PASSWORD
   version                      = "10.2"
-  ssl_enforcement_enabled      = "true"
+  ssl_enforcement_enabled      = true
 }
-
 
 resource "azurerm_mariadb_database" "gestionProjet" {
   name                = "gestionProjet"
