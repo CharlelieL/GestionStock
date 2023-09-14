@@ -1,13 +1,23 @@
-
 provider "azurerm" {
   features {}
-  subscription_id = "5965b991-cecb-4428-8372-a624121cd5a6"
+  ARM_CLIENT_ID = var.ARM_CLIENT_ID
   skip_provider_registration = true
 }
-
-variable "current_ip" {
-  description = "YOUR CURRENT IP"
+variable "ARM_CLIENT_ID" {
+  description = "Azure Subscription ID"
   type        = string
+  sensitive   = true
+}
+
+variable "DATABASE_USER" {
+  description = "MariaDB Administrator Login"
+  type        = string
+  sensitive   = true
+}
+variable "DATABASE_PASSWORD" {
+  description = "MariaDB Administrator Password"
+  type        = string
+  sensitive   = true
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -26,21 +36,12 @@ resource "azurerm_mariadb_server" "mariadb" {
   backup_retention_days = 7
   geo_redundant_backup_enabled  = false
 
-  administrator_login          = "adminuser"
-  administrator_login_password = "Pa5Ddzaffez*49--8"
+  administrator_login          = "var.DATABASE_USER"
+  administrator_login_password = "var.DATABASE_PASSWORD"
   version                      = "10.2"
   ssl_enforcement_enabled      = "true"
 }
 
-resource "azurerm_mariadb_firewall_rule" "example" {
-  name                = "allow_current_ip"
-  resource_group_name = azurerm_resource_group.rg.name
-  server_name         = azurerm_mariadb_server.mariadb.name
-  start_ip_address    = var.current_ip
-  end_ip_address      = var.current_ip
-
-  depends_on = [azurerm_resource_group.rg]
-}
 
 resource "azurerm_mariadb_database" "gestionProjet" {
   name                = "gestionProjet"
