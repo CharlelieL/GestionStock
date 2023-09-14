@@ -58,6 +58,6 @@ jobs:
         run: |
           cd azure-migration
           terraform apply -auto-approve \
-            -var="subscription_id=${{ secrets.DATABASE_USER }}" \
-            -var="admin_login=${{ secrets.DATABASE_USER }}" \
-            -var="admin_password=${{ secrets.DATABASE_PASSWORD }}"
+            -var="ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}" \
+            -var="DATABASE_USER=${{ secrets.DATABASE_USER }}" \
+            -var="DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}"
