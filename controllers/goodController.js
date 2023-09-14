@@ -1,12 +1,14 @@
+const sequelize = require('../configs/dbConfig');
 const good = require('../models/goodModel');
 const passport = require('passport');
 
 
 class goodController{
 
-showALL(request, response){
+async showALL(request, response){
     
-        const goods= good.findAll()
+        const goods= await good.findAll()
+        console.log(goods)
         response.render('dashboard',{goods})
     
 

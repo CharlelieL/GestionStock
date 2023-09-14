@@ -37,7 +37,7 @@ services:
     restart: always
     image: "mariadb:10.11.4"
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=master
       - MYSQL_ROOT_HOST=%
@@ -68,4 +68,4 @@ volumes:
 networks:
     app:
       name: app
-      external: true
+      external: false
