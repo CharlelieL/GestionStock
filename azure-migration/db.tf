@@ -106,20 +106,21 @@ resource "azurerm_service_plan" "app_service_plan" {
   name                = "myAppServicePlan"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  kind                = "Linux"
-  reserved            = true
-  sku {
-    tier = "Basic"
-    size = "B1"
-  }
+
+  # Assuming you are using a Linux App Service Plan with a basic tier.
+  os_type     = "Linux"
+  sku_name    = "B1" # This is for Basic tier. You can change as needed.
+  sku_tier    = "Basic" # Adjust as needed.
+  sku_size    = "B1" # Adjust as needed.
+  sku_capacity = 1
 }
+
 
 resource "azurerm_app_service" "web_app" {
   name                = "gestionStockApp4821"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
-
+  app_service_plan_id = azurerm_service_plan.app_service_plan.id
   site_config {
     linux_fx_version = "DOCKER|tarkipn/gestionstock:latest" 
     always_on        = true
