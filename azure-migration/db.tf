@@ -75,6 +75,15 @@ resource "azurerm_mariadb_database" "gestionProjet" {
   collation           = "utf8_general_ci"
 }
 
+resource "azurerm_mariadb_firewall_rule" "allow_all" {
+  name                = "AllowAll"
+  resource_group_name = azurerm_resource_group.rg.name
+  server_name         = azurerm_mariadb_server.mariadb.name
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "255.255.255.255"
+}
+
+
 output "mariadb_server_fqdn" {
   value = azurerm_mariadb_server.mariadb.fqdn
 }
