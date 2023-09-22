@@ -20,7 +20,7 @@ services:
     volumes:
       - .:/usr/src/app
       - node_modules:/node_modules
-      - ./ssl/DigiCertGlobalRootCA.crt.pem:/etc/ssl/certs/DigiCertGlobalRootCA.crt.pem:ro
+      - ./ssl/DigiCertGlobalRootCA.crt.pem:/usr/src/app/ssl/DigiCertGlobalRootCA.crt.pem:ro
     networks:
       - app
   

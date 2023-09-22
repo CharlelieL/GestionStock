@@ -65,5 +65,4 @@ jobs:
             -var="DATABASE_USER=${{ secrets.DATABASE_USER }}" \
             -var="DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" \
             -var="ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}" \
-            -var="ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}"
-
+            -var="ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}" 
