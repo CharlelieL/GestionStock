@@ -126,10 +126,13 @@ resource "azurerm_app_service" "web_app" {
     # Add any other environment variables your app needs...
   }
 }
+resource "random_pet" "name" {
+  length = 3
+}
 
 # Azure Cache for Redis
 resource "azurerm_redis_cache" "redis_cache" {
-  name                = "myRedisCache"
+  name                = "redisSession-${random_pet.name.id}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   capacity            = 0
