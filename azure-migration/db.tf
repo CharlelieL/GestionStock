@@ -115,7 +115,7 @@ resource "azurerm_app_service" "web_app" {
   app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
 
   site_config {
-    linux_fx_version = "DOCKER|your-docker-image-name:latest" # Update this to your image path
+    linux_fx_version = "DOCKER|tarkipn/gestionstock:latest" 
     always_on        = true
   }
 
