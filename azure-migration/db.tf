@@ -109,7 +109,7 @@ resource "azurerm_app_service_plan" "app_service_plan" {
 
 # Azure Web App for Containers
 resource "azurerm_app_service" "web_app" {
-  name                = "gestionStock"
+  name                = "gestionStockApp4821"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
