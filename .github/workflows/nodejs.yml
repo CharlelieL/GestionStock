@@ -69,7 +69,8 @@ jobs:
           terraform apply -auto-approve \
             -var="ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}" \
             -var="ARM_CLIENT_SECRET=${{ secrets.ARM_CLIENT_SECRET }}" \
+            -var="ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}" \
             -var="DATABASE_USER=${{ secrets.DATABASE_USER }}" \
             -var="DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" \
-            -var="ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}" \
-            -var="ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}" 
+            -var="ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}" \
+            -var="DATABASE_HOST=${{ secrets.DATABASE_HOST }}"

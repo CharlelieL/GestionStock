@@ -86,6 +86,7 @@ resource "azurerm_mariadb_firewall_rule" "allow_all" {
 
 output "mariadb_server_fqdn" {
   value = azurerm_mariadb_server.mariadb.fqdn
+  description = "The MariaDB server FQDN"
 }
 
 
@@ -117,6 +118,9 @@ resource "azurerm_app_service" "web_app" {
   site_config {
     linux_fx_version = "DOCKER|tarkipn/gestionstock:latest" 
     always_on        = true
+    DATABASE_HOST = var.DATABASE_HOST
+    DATABASE_USER = var.DATABASE_USER
+    DATABASE_PASSWORD = var.DATABASE_PASSWORD
   }
 
   app_settings = {
