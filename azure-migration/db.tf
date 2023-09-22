@@ -33,6 +33,12 @@ variable "DATABASE_PASSWORD" {
   type        = string
   sensitive   = true
 }
+variable "DATABASE_HOST" {
+  description = "MariaDB Administrator Password"
+  type        = string
+  sensitive   = true
+}
+
 
 provider "azurerm" {
   features {}
