@@ -102,7 +102,7 @@ output "mariadb_server_fqdn" {
 # Use the existing Azure provider configuration...
 
 # Azure App Service Plan
-resource "azurerm_app_service_plan" "app_service_plan" {
+resource "azurerm_service_plan" "app_service_plan" {
   name                = "myAppServicePlan"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -114,7 +114,6 @@ resource "azurerm_app_service_plan" "app_service_plan" {
   }
 }
 
-# Azure Web App for Containers
 resource "azurerm_app_service" "web_app" {
   name                = "gestionStockApp4821"
   location            = azurerm_resource_group.rg.location
@@ -124,18 +123,19 @@ resource "azurerm_app_service" "web_app" {
   site_config {
     linux_fx_version = "DOCKER|tarkipn/gestionstock:latest" 
     always_on        = true
-    DATABASE_HOST = var.DATABASE_HOST
-    DATABASE_USER = var.DATABASE_USER
-    DATABASE_PASSWORD = var.DATABASE_PASSWORD
   }
 
   app_settings = {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "DOCKER_REGISTRY_SERVER_URL"          = "https://index.docker.io"
     "DB_HOST"                             = azurerm_mariadb_server.mariadb.fqdn
+    "DATABASE_HOST"                       = var.DATABASE_HOST
+    "DATABASE_USER"                       = var.DATABASE_USER
+    "DATABASE_PASSWORD"                   = var.DATABASE_PASSWORD
     # Add any other environment variables your app needs...
   }
 }
+
 resource "random_pet" "name" {
   length = 3
 }
