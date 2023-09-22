@@ -107,13 +107,15 @@ resource "azurerm_service_plan" "app_service_plan" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  # Assuming you are using a Linux App Service Plan with a basic tier.
   os_type     = "Linux"
-  sku_name    = "B1" # This is for Basic tier. You can change as needed.
-  sku_tier    = "Basic" # Adjust as needed.
-  sku_size    = "B1" # Adjust as needed.
-  sku_capacity = 1
+
+  sku {
+    tier     = "Basic"
+    size     = "B1"
+    capacity = 1
+  }
 }
+
 
 
 resource "azurerm_app_service" "web_app" {
