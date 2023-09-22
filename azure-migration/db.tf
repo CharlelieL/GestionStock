@@ -87,3 +87,65 @@ resource "azurerm_mariadb_firewall_rule" "allow_all" {
 output "mariadb_server_fqdn" {
   value = azurerm_mariadb_server.mariadb.fqdn
 }
+
+
+
+
+
+# Use the existing Azure provider configuration...
+
+# Azure App Service Plan
+resource "azurerm_app_service_plan" "app_service_plan" {
+  name                = "myAppServicePlan"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  kind                = "Linux"
+  reserved            = true
+  sku {
+    tier = "Basic"
+    size = "B1"
+  }
+}
+
+# Azure Web App for Containers
+resource "azurerm_app_service" "web_app" {
+  name                = "gestionStock"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
+
+  site_config {
+    linux_fx_version = "DOCKER|your-docker-image-name:latest" # Update this to your image path
+    always_on        = true
+  }
+
+  app_settings = {
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+    "DOCKER_REGISTRY_SERVER_URL"          = "https://index.docker.io"
+    "DB_HOST"                             = azurerm_mariadb_server.mariadb.fqdn
+    # Add any other environment variables your app needs...
+  }
+}
+
+# Azure Cache for Redis
+resource "azurerm_redis_cache" "redis_cache" {
+  name                = "myRedisCache"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  capacity            = 0
+  family              = "C"
+  sku_name            = "Basic"
+  enable_non_ssl_port = false
+
+  redis_configuration {
+    maxmemory_policy = "allkeys-lru"
+  }
+}
+
+output "web_app_url" {
+  value = "http://${azurerm_app_service.web_app.default_site_hostname}"
+}
+
+output "redis_hostname" {
+  value = azurerm_redis_cache.redis_cache.hostname
+}
