@@ -107,16 +107,12 @@ resource "azurerm_service_plan" "app_service_plan" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  kind = "Linux"
+  kind     = "Linux"
   reserved = true # Required for Linux plans
 
-  sku {
-    tier = "Basic"
-    size = "B1"
-  }
+  sku_tier = "Basic"
+  sku_size = "B1"
 }
-
-
 
 
 
