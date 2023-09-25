@@ -126,8 +126,7 @@ resource "azurerm_app_service" "web_app" {
   app_settings = {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "DOCKER_REGISTRY_SERVER_URL"          = "https://index.docker.io"
-    "DB_HOST"                             = azurerm_mariadb_server.mariadb.fqdn
-    "DATABASE_HOST"                       = var.DATABASE_HOST
+    "DATABASE_HOST"                             = azurerm_mariadb_server.mariadb.fqdn
     "DATABASE_USER"                       = var.DATABASE_USER
     "DATABASE_PASSWORD"                   = var.DATABASE_PASSWORD
     # Add any other environment variables your app needs...
