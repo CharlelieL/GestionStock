@@ -110,7 +110,6 @@ resource "azurerm_service_plan" "app_service_plan" {
   os_type     = "Linux"
   reserved = true # Required for Linux plans
   sku_name = "B1"
-  sku_tier = "Basic"
 }
 
 
