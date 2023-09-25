@@ -14,7 +14,4 @@ resource "azurerm_dashboard_grafana" "grafana" {
     env = "production"
   }
 }
-output "grafana_url" {
-  value       = azurerm_dashboard_grafana.grafana.url
-  description = "The Grafana dashboard URL"
-}
+
