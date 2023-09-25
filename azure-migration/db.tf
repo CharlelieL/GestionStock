@@ -108,8 +108,7 @@ resource "azurerm_service_plan" "app_service_plan" {
   resource_group_name = azurerm_resource_group.rg.name
 
   os_type     = "Linux"
-  reserved = true # Required for Linux plans
-  sku_name = "B1"
+  sku_name    = "B1"
 }
 
 
