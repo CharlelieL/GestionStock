@@ -102,7 +102,7 @@ output "mariadb_server_fqdn" {
 # Use the existing Azure provider configuration...
 
 # Azure App Service Plan
-resource "azurerm_app_service_plan" "app_service_plan" {
+resource "azurerm_service_plan" "app_service_plan" {
   name                = "myAppServicePlan"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -115,6 +115,7 @@ resource "azurerm_app_service_plan" "app_service_plan" {
     size = "B1"
   }
 }
+
 
 
 
