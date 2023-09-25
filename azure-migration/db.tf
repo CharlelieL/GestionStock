@@ -32,11 +32,6 @@ variable "DATABASE_PASSWORD" {
   type        = string
   sensitive   = true
 }
-variable "DATABASE_HOST" {
-  description = "MariaDB Host"
-  type        = string
-  sensitive   = true
-}
 variable "DATABASE_NAME" {
   description = "MariaDB DB Name"
   type        = string
@@ -97,10 +92,6 @@ output "mariadb_server_fqdn" {
   value = azurerm_mariadb_server.mariadb.fqdn
   description = "The MariaDB server FQDN"
 }
-
-
-
-
 
 # Use the existing Azure provider configuration...
 
