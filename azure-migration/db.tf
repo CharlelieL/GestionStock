@@ -37,6 +37,11 @@ variable "DATABASE_NAME" {
   type        = string
   sensitive   = true
 }
+variable "REDDIS_URL" {
+  description = "MariaDB DB Name"
+  type        = string
+  sensitive   = true
+}
 
 provider "azurerm" {
   features {}
