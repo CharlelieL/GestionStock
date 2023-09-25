@@ -158,8 +158,10 @@ output "web_app_url" {
 }
 
 output "primary_access_key" {
-  value = azurerm_redis_cache.redis_cache.primary_access_key
+  value     = azurerm_redis_cache.redis_cache.primary_access_key
+  sensitive = true
 }
+
 output "redis_hostname" {
   value = azurerm_redis_cache.redis_cache.hostname
 }
