@@ -23,7 +23,10 @@ const redisurl= process.env.REDDIS_URL;
 console.log(redisurl);
 // Initialize and connect Redis Client
 const redisClient = redis.createClient({
-url: redisurl
+url: redisurl,
+tls: {
+  rejectUnauthorized: false
+}
 });
 redisClient.connect().catch(console.error);
 

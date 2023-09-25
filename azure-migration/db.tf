@@ -133,6 +133,7 @@ resource "azurerm_app_service" "web_app" {
     "DATABASE_USER"                       = var.DATABASE_USER
     "DATABASE_PASSWORD"                   = var.DATABASE_PASSWORD
     "DATABASE_NAME"                       = "gestionProjet"
+    "REDDIS_URL" = "rediss://:${azurerm_redis_cache.redis_cache.primary_access_key}@${azurerm_redis_cache.redis_cache.hostname}:6380"
     # Add any other environment variables your app needs
   }
 }
@@ -160,6 +161,9 @@ output "web_app_url" {
   value = "http://${azurerm_app_service.web_app.default_site_hostname}"
 }
 
+output "primary_access_key" {
+  value = azurerm_redis_cache.redis_cache.primary_access_key
+}
 output "redis_hostname" {
   value = azurerm_redis_cache.redis_cache.hostname
 }
