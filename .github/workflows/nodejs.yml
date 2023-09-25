@@ -75,5 +75,4 @@ jobs:
             -var="ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}" \
             -var="DATABASE_NAME=${{ secrets.DATABASE_NAME }}" \
             -var="REDDIS_URL=${{ secrets.REDDIS_URL }}" \
-
             -var="DATABASE_HOST=${{ secrets.DATABASE_HOST }}"
