@@ -27,18 +27,21 @@ variable "DATABASE_USER" {
   type        = string
   sensitive   = true
 }
-
 variable "DATABASE_PASSWORD" {
   description = "MariaDB Administrator Password"
   type        = string
   sensitive   = true
 }
 variable "DATABASE_HOST" {
-  description = "MariaDB Administrator Password"
+  description = "MariaDB Host"
   type        = string
   sensitive   = true
 }
-
+variable "DATABASE_NAME" {
+  description = "MariaDB DB Name"
+  type        = string
+  sensitive   = true
+}
 
 provider "azurerm" {
   features {}
@@ -126,9 +129,10 @@ resource "azurerm_app_service" "web_app" {
   app_settings = {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "DOCKER_REGISTRY_SERVER_URL"          = "https://index.docker.io"
-    "DATABASE_HOST"                             = azurerm_mariadb_server.mariadb.fqdn
+    "DATABASE_HOST"                       = azurerm_mariadb_server.mariadb.fqdn
     "DATABASE_USER"                       = var.DATABASE_USER
     "DATABASE_PASSWORD"                   = var.DATABASE_PASSWORD
+    "DATABASE_NAME"                       = "gestionProjet"
     # Add any other environment variables your app needs...
   }
 }
