@@ -133,7 +133,7 @@ resource "azurerm_app_service" "web_app" {
     "DATABASE_USER"                       = var.DATABASE_USER
     "DATABASE_PASSWORD"                   = var.DATABASE_PASSWORD
     "DATABASE_NAME"                       = "gestionProjet"
-    # Add any other environment variables your app needs...
+    # Add any other environment variables your app needs
   }
 }
 
