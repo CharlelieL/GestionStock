@@ -25,14 +25,6 @@
 
                 <form method="post" action="<%= action  %>">
 
-                    <div class="mb-3">
-                        <label for="title" class="form-label">title</label>
-                        <% if(title) { %>
-                            <input type="text" class="form-control" name="title" id="title" placeholder="Nom du produit" value=<%=title%>>
-                        <% }else{ %>
-                            <input type="text" class="form-control" name="title" id="title" placeholder="Nom du produit">
-                        <% } %>
-                    </div>
 
                     <div class="mb-3">
                         <label for="label" class="form-label">label</label>
@@ -46,11 +38,11 @@
                     <div class="mb-3">
                         <label for="quantity" class="form-label">Quantité</label>
                         <% if(quantity) { %>
-                            <textarea class="form-control" name="quantity" id="quantity"
-                            placeholder="Nombre de bien"><%=quantity%></textarea>
+                            <input class="form-control" name="quantity" id="quantity"
+                            placeholder="Nombre de bien" value=<%=quantity%>></input>
                         <% }else{ %>
-                            <textarea class="form-control" name="quantity" id="quantity"
-                                placeholder="Nombre de bien"></textarea>
+                            <input class="form-control" name="quantity" id="quantity"
+                                placeholder="Nombre de bien"></input>
                         <% } %>
                     </div>
 

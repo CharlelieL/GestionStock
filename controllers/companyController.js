@@ -56,9 +56,21 @@ class CompanyController {
     }
 
     logout(request, response) {
-        request.logout();
-        response.redirect('/');
-    }
+        console.log("etape franchi")
+        // passport.authenticate('logout', (err, user, info) => {
+        //     console.log("etape franchi")
+        //     if (err) {
+        //         console.error(err);
+        //         return res.status(500).send('Erreur lors de la déconnexion');
+        //     }
+        request.logout(function (err) {
+            if (err) {
+              console.error(err);
+              return response.status(500).send('Erreur lors de la déconnexion');
+            }
+            response.redirect('/login'); // Redirigez l'utilisateur vers la page de connexion après la déconnexion
+          });
+}
 }
 
 module.exports = new CompanyController();

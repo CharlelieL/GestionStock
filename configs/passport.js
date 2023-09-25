@@ -104,4 +104,16 @@ module.exports = (passport) => {
             }
         )
     );
+
+    passport.use('logout', new LocalStrategy({
+        localStrategy,
+        
+      }, (request, done) => {
+        console.log("etape franchi")
+        // Vous pouvez effectuer des actions supplémentaires ici avant la déconnexion si nécessaire.
+        // Par exemple, vider la session.
+      
+        request.logout(); // Déconnexion de l'utilisateur
+        done(null, null); // Indiquez que la déconnexion s'est bien passée
+      }));
 };

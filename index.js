@@ -70,6 +70,7 @@ app.use('/', require('./routes/login'));
 app.use('/', require('./routes/register'));
 app.use('/', require('./routes/dashboard'));
 app.use('/', require('./routes/error'));
+app.use('/', require('./routes/goodForm'))
 
 //Add a Sync route
 // WARNING ! Going there *HARD RESET* DATABASE
