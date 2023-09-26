@@ -125,7 +125,7 @@ resource "azurerm_app_service" "web_app" {
   app_settings = {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "DOCKER_REGISTRY_SERVER_URL"          = "https://index.docker.io"
-    "DATABASE_HOST"                       = azurerm_mariadb_server.mariadb.fqdn
+    "DATABASE_HOST"                       = "gestionstock-server.mariadb.database.azure.com"
     "DATABASE_USER"                       = var.DATABASE_USER
     "DATABASE_PASSWORD"                   = var.DATABASE_PASSWORD
     "DATABASE_NAME"                       = "gestionProjet"

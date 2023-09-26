@@ -13,8 +13,14 @@
   },
   "jest": {
     "collectCoverage": true,
-    "coveragePathIgnorePatterns": ["/node_modules/", "/azure-migration/"],
-    "coverageReporters": ["lcov", "text"]
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/azure-migration/"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ]
   },
   "repository": {
     "type": "git",
@@ -43,7 +49,6 @@
     "redis": "^4.6.8",
     "sequelize": "^6.32.1",
     "supertest": "^6.3.3"
-    
   },
   "devDependencies": {
     "@babel/cli": "^7.22.9",
