@@ -20,6 +20,7 @@ Address.belongsToMany(Company, { through: 'CompanyAddress' });
 
 // Good-Type (Many-to-One) Relationship
 Good.belongsTo(Type, { foreignKey: 'typeId' });
+Good.belongsTo(Company, {foreignKey: 'companyId'})
 
 // Good-Supplier (Many-to-One) Relationship
 Good.belongsTo(Supplier, { foreignKey: 'supplierId' });

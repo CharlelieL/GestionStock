@@ -27,10 +27,12 @@ router.post('/good/new', async (req,res)=>{
     console.log(req.body.label)
     console.log(req.body.quantity)
     console.log(req.body.priceHT)
+    const companyId = req.session.passport.user
     const newGood= {
       label: req.body.label,
       quantity: parseInt(req.body.quantity),
       priceHT: parseInt(req.body.priceHT).toFixed(2),
+      companyId: companyId
     }
     try{
       
