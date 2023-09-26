@@ -10,15 +10,17 @@ on:
       - main
       - charlelie
 
+env:
+  SONAR_USER_HOME: ${{ github.workspace }}/.sonar
+  GIT_DEPTH: "0"
+  TF_LOG: "DEBUG"
+
 jobs:
   sonarcloud-check:
     runs-on: ubuntu-latest
     container:
       image: sonarsource/sonar-scanner-cli:latest
       options: --entrypoint ""
-    env:
-      SONAR_USER_HOME: ${{ github.workspace }}/.sonar
-      GIT_DEPTH: "0"
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -32,85 +34,44 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    container:
-      image: node:latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Build
-      run: |
-        echo "Compiling the code..."
-        echo "Compile complete."
+      - uses: actions/checkout@v2
 
-  test:
-    runs-on: ubuntu-latest
-    container:
-      image: node:latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Cache node modules
-      uses: actions/cache@v2
-      with:
-        path: node_modules/
-        key: node-modules-${{ runner.OS }}-${{ hashFiles('**/package-lock.json') }}
-    - name: Run unit tests
-      run: |
-        echo "Running unit tests... This will take about 60 seconds."
-        echo "Code coverage is 90%"
-        npm ci
-        npm test && echo "All unit tests passed!" > test-result.txt || echo "Some unit tests failed." > test-result.txt
-    - name: Upload test results
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-results
-        path: test-result.txt
-
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout 
-        uses: actions/checkout@v2
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v1
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_CONTENT }}
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/hellodocker:latest
+          node-version: '18.x'
 
-  terraform:
-    runs-on: ubuntu-latest
-    container:
-      image: zenika/terraform-azure-cli:latest        
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Terraform init
-      run: |
-        cd ./terraform
-        terraform init --backend-config=./backend.tfvars -reconfigure
-    - name: Terraform plan
-      run: |
-        cd ./terraform
-        terraform plan --var-file ./input.tfvars
-    - name: Terraform apply
-      run: |
-        cd ./terraform
-        terraform apply -auto-approve --var-file ./input.tfvars
+      - run: npm ci
+      - run: npm test
+
+      # Build and push Docker image to Docker Hub
+      - name: Build Docker Image
+        run: docker build -t tarkipn/gestionstock:latest .
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Push Docker Image to Docker Hub
+        run: docker push tarkipn/gestionstock:latest
+
+      # Terraform setup and execution
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        
+      - name: Terraform Init
+        run: |
+          cd azure-migration
+          terraform init
+      - name: Terraform Apply
+        run: |
+          cd azure-migration
+          terraform apply -auto-approve \
+            -var="ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}" \
+            -var="ARM_CLIENT_SECRET=${{ secrets.ARM_CLIENT_SECRET }}" \
+            -var="ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}" \
+            -var="DATABASE_USER=${{ secrets.DATABASE_USER }}" \
+            -var="DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" \
+            -var="ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}" \
+            -var="DATABASE_NAME=${{ secrets.DATABASE_NAME }}" \
+            -var="REDDIS_URL=${{ secrets.REDDIS_URL }}"
