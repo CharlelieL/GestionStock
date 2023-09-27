@@ -7,12 +7,22 @@
     "node": ">=15.17"
   },
   "scripts": {
-    "test": "NODE_ENV=test jest --coverage",
+    "test": "NODE_ENV=test jest",
     "start": "nodemon --legacy-watch index.js",
     "babel": "babel"
   },
   "jest": {
     "collectCoverage": true,
+    "collectCoverageFrom": [
+      "auth/*.js",
+      "configs/*.js",
+      "controllers/*.js",
+      "index.js",
+      "models/*.js",
+      "routes/*.js",
+      "!**/*.test.js",
+      "!**/node_modules/**"
+    ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/azure-migration/"
