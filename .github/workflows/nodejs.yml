@@ -32,13 +32,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          sonar-scanner \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.projectKey=CharlelieL_GestionStock \
-            -Dsonar.organization=polka \
-            -Dsonar.sources=. \
-            -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          docker run --rm -e SONAR_TOKEN=$SONAR_TOKEN -v $(pwd):/usr/src sonarsource/sonar-scanner-cli:latest -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=CharlelieL_GestionStock -Dsonar.organization=polka -Dsonar.sources=. -Dsonar.login=$SONAR_TOKEN -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
       # Docker build & push
       - name: Build Docker Image
