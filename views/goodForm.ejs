@@ -23,38 +23,48 @@
 
             <div class="card-content my-3">
 
-                <form method="post" action="<%= action  %>">
+                <form method="post" action="<%= action  %>" class="col-8 mx-auto">
 
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label for="label" class="form-label">Label</label>                            
+                        </div>
+                        <div class="col-10">
+                            <% if(label) { %>
+                                <input type="text" class="form-control" name="label" id="label" placeholder="Nom du bien" value=<%=label%>>
+                            <% }else{ %>
+                                <input type="text" class="form-control" name="label" id="label" placeholder="Nom du bien">
+                            <% } %>                         
+                        </div>
+                    </div>                    
 
-                    <div class="mb-3">
-                        <label for="label" class="form-label">label</label>
-                        <% if(label) { %>
-                            <input type="text" class="form-control" name="label" id="label" placeholder="nom du bien" value=<%=label%>>
-                        <% }else{ %>
-                            <input type="text" class="form-control" name="label" id="label" placeholder="nom du bien">
-                        <% } %>
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label for="label" class="form-label">Quantité</label>                            
+                        </div>
+                        <div class="col-10">
+                            <% if(quantity) { %>
+                                <input class="form-control" name="quantity" id="quantity"
+                                placeholder="Nombre de bien" value=<%=quantity%>></input>
+                            <% }else{ %>
+                                <input class="form-control" name="quantity" id="quantity"
+                                    placeholder="Nombre de bien"></input>
+                            <% } %>                        
+                        </div>
+                    </div>                    
+
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label for="priceHT" class="form-label">Prix HT</label>                        
+                        </div>
+                        <div class="col-10">
+                            <% if(priceHT) { %>
+                                <input type="text" class="form-control" name="priceHT" id="priceHT" placeholder="Prix HT unitaire du bien" value=<%=priceHT%>>
+                            <% }else{ %>
+                                <input type="text" class="form-control" name="priceHT" id="priceHT" placeholder="Prix HT unitaire du bien">
+                            <% } %>                      
+                        </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantité</label>
-                        <% if(quantity) { %>
-                            <input class="form-control" name="quantity" id="quantity"
-                            placeholder="Nombre de bien" value=<%=quantity%>></input>
-                        <% }else{ %>
-                            <input class="form-control" name="quantity" id="quantity"
-                                placeholder="Nombre de bien"></input>
-                        <% } %>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="priceHT" class="form-label">PrixHT</label>
-                        <% if(priceHT) { %>
-                            <input type="text" class="form-control" name="priceHT" id="priceHT" placeholder="Prix HT unitaire du bien" value=<%=priceHT%>>
-                        <% }else{ %>
-                            <input type="text" class="form-control" name="priceHT" id="priceHT" placeholder="Prix HT unitaire du bien">
-                        <% } %>
-                    </div>
-
                     
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <button type="submit" class="btn btn-dark">AJOUTER</button>

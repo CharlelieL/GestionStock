@@ -46,7 +46,8 @@ module.exports = (passport) => {
                             var newUser = new UserModel();
                             newUser.mail = mail;
                             newUser.name = request.body.name;
-                            newUser.pwd = newUser.generateHash(pwd);                            
+                            newUser.pwd = newUser.generateHash(pwd);
+                            newUser.logo = request.body.logo                            
                             newUser.save()
                                 .then(() => {
                                     console.log('New user created.');

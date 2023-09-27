@@ -31,7 +31,7 @@ router.post('/good/new', async (req,res)=>{
     const newGood= {
       label: req.body.label,
       quantity: parseInt(req.body.quantity),
-      priceHT: parseInt(req.body.priceHT).toFixed(2),
+      priceHT: parseFloat(req.body.priceHT).toFixed(2),
       companyId: companyId
     }
     try{
@@ -108,4 +108,27 @@ router.get('/good/:id/delete', async (req, res) => {
   }
 });
 
+router.get('/good/:id/up', async (req,res) => {
+  if (req.isAuthenticated()) {
+    const id = req.params.id
+    const goodUpdate = await good.findByPk(id)
+    goodUpdate.quantity++
+    goodUpdate.save()
+    res.redirect('/dashboard')
+  } else {
+    res.redirect('/login')
+  }
+})
+
+router.get('/good/:id/down', async (req,res) => {
+  if (req.isAuthenticated()) {
+    const id = req.params.id
+    const goodUpdate = await good.findByPk(id)
+    goodUpdate.quantity--
+    goodUpdate.save()
+    res.redirect('/dashboard')
+  } else {
+    res.redirect('/login')
+  }
+})
 module.exports = router;
