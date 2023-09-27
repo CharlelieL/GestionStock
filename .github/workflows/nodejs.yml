@@ -34,7 +34,13 @@ jobs:
     - name: Run sonar-scanner
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Pass the SonarCloud token as an environment variable
-      run: sonar-scanner
+      run: |
+        sonar-scanner \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.projectKey=CharlelieL_GestionStock \
+          -Dsonar.organization=polka \
+          -Dsonar.sources=. \
+          -Dsonar.login=$SONAR_TOKEN
 
 
   build:
