@@ -1,0 +1,3 @@
+sonar.projectKey=my_project_key
+sonar.organization=my_organization_key
+sonar.sources=.

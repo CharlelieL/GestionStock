@@ -143,3 +143,7 @@ If you're looking to manage your Node.js processes and keep them alive forever, 
 pm2 start process.yml
 
 ```
+
+
+RG State:   tfstate
+Blob State: tfstate7miin
