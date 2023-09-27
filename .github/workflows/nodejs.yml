@@ -40,9 +40,8 @@ jobs:
           -Dsonar.projectKey=CharlelieL_GestionStock \
           -Dsonar.organization=polka \
           -Dsonar.sources=. \
-          -Dsonar.token=$SONAR_TOKEN
+          -Dsonar.token=$SONAR_TOKEN \
           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-
 
   build:
     runs-on: ubuntu-latest
