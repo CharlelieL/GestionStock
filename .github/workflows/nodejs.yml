@@ -41,6 +41,7 @@ jobs:
           -Dsonar.organization=polka \
           -Dsonar.sources=. \
           -Dsonar.token=$SONAR_TOKEN
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
 
   build:
