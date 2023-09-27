@@ -40,7 +40,7 @@ jobs:
           -Dsonar.projectKey=CharlelieL_GestionStock \
           -Dsonar.organization=polka \
           -Dsonar.sources=. \
-          -Dsonar.login=$SONAR_TOKEN
+          -Dsonar.token=$SONAR_TOKEN
 
 
   build:
