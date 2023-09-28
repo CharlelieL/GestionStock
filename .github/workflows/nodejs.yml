@@ -29,12 +29,29 @@ jobs:
       - run: npm ci
       - run: npm test
 
+      # Generate and Upload the Coverage Report
+      - name: Archive code coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage/lcov.info
+
+      - name: Download code coverage
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage
+
+
       # SonarCloud Analysis using GitHub Action
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.projectKey=CharlelieL_GestionStock \
+            -Dsonar.organization=polka \
+            -Dsonar.sources=. \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
       # Docker build & push
       - name: Build Docker Image
