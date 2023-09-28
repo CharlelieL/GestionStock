@@ -42,6 +42,11 @@ variable "REDDIS_URL" {
   type        = string
   sensitive   = true
 }
+variable "DOCKER_IMAGE_TAG" {
+  description = "The Docker image tag to deploy"
+  type        = string
+}
+
 
 provider "azurerm" {
   features {}
@@ -118,8 +123,8 @@ resource "azurerm_app_service" "web_app" {
   resource_group_name = azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_service_plan.app_service_plan.id
   site_config {
-    linux_fx_version = "DOCKER|tarkipn/gestionstock:latest" 
-    always_on        = true
+    linux_fx_version  = "DOCKER|tarkipn/gestionstock:${var.DOCKER_IMAGE_TAG}" 
+    always_on         = true
   }
 
   app_settings = {

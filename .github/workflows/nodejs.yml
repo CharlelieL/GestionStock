@@ -40,14 +40,19 @@ jobs:
       # rest of your steps
 
 
-      # Docker build & push
-      - name: Build Docker Image
-        run: docker build -t tarkipn/gestionstock:latest .
+      # Docker build, tag & push
+      - name: Build and Tag Docker Image
+        run: |
+          TAG_NAME=$(git rev-parse --short HEAD)
+          docker build -t tarkipn/gestionstock:$TAG_NAME .
+          docker tag tarkipn/gestionstock:$TAG_NAME tarkipn/gestionstock:latest
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-      - name: Push Docker Image to Docker Hub
-        run: docker push tarkipn/gestionstock:latest
-
+      - name: Push Docker Images to Docker Hub
+        run: |
+          TAG_NAME=$(git rev-parse --short HEAD)
+          docker push tarkipn/gestionstock:$TAG_NAME
+          docker push tarkipn/gestionstock:latest
       # Terraform setup and execution
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -64,6 +69,7 @@ jobs:
       - name: Terraform Apply
         run: |  
           cd azure-migration
+          TAG_NAME=$(git rev-parse --short HEAD)
           terraform apply -auto-approve \
             -var="ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}" \
             -var="ARM_CLIENT_SECRET=${{ secrets.ARM_CLIENT_SECRET }}" \
@@ -73,3 +79,4 @@ jobs:
             -var="ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}" \
             -var="DATABASE_NAME=${{ secrets.DATABASE_NAME }}" \
             -var="REDDIS_URL=${{ secrets.REDDIS_URL }}"
+            -var="DOCKER_IMAGE_TAG=$TAG_NAME"
