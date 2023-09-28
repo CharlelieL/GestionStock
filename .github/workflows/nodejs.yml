@@ -78,5 +78,5 @@ jobs:
             -var="DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" \
             -var="ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}" \
             -var="DATABASE_NAME=${{ secrets.DATABASE_NAME }}" \
-            -var="REDDIS_URL=${{ secrets.REDDIS_URL }}"
+            -var="REDDIS_URL=${{ secrets.REDDIS_URL }}" \
             -var="DOCKER_IMAGE_TAG=$TAG_NAME"

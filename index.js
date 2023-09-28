@@ -26,8 +26,15 @@ const redisClient = redis.createClient({
 url: redisurl,
 tls: {
   rejectUnauthorized: false
-}
+},
+socket_keepalive: true,
+  socket_initial_delay: 5 * 60 * 1000 // 5 minutes
 });
+
+redisClient.on('error', (err) => {
+  console.error('Redis error:', err);
+});
+
 redisClient.connect().catch(console.error);
 
 
