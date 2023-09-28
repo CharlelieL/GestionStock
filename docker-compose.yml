@@ -69,4 +69,4 @@ volumes:
 networks:
     app:
       name: app
-      external: true
+      external: false

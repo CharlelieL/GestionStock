@@ -108,27 +108,39 @@ router.get('/good/:id/delete', async (req, res) => {
   }
 });
 
-router.get('/good/:id/up', async (req,res) => {
+// router.get('/good/:id/up', async (req,res) => {
+//   if (req.isAuthenticated()) {
+//     const id = req.params.id
+//     const goodUpdate = await good.findByPk(id)
+//     goodUpdate.quantity++
+//     goodUpdate.save()
+//     res.redirect('/dashboard')
+//   } else {
+//     res.redirect('/login')
+//   }
+// })
+router.post('/good/:id/op', async (req,res) => {
   if (req.isAuthenticated()) {
     const id = req.params.id
     const goodUpdate = await good.findByPk(id)
-    goodUpdate.quantity++
+    const op = parseInt(req.body.op)
+    console.log(op)
+    goodUpdate.quantity=goodUpdate.quantity+op
     goodUpdate.save()
     res.redirect('/dashboard')
   } else {
     res.redirect('/login')
   }
 })
-
-router.get('/good/:id/down', async (req,res) => {
-  if (req.isAuthenticated()) {
-    const id = req.params.id
-    const goodUpdate = await good.findByPk(id)
-    goodUpdate.quantity--
-    goodUpdate.save()
-    res.redirect('/dashboard')
-  } else {
-    res.redirect('/login')
-  }
-})
+// router.get('/good/:id/down', async (req,res) => {
+//   if (req.isAuthenticated()) {
+//     const id = req.params.id
+//     const goodUpdate = await good.findByPk(id)
+//     goodUpdate.quantity--
+//     goodUpdate.save()
+//     res.redirect('/dashboard')
+//   } else {
+//     res.redirect('/login')
+//   }
+// })
 module.exports = router;
