@@ -80,7 +80,7 @@ router.post('/good/:id/edit', async (req,res) => {
     const goodToUpdate = await good.findByPk(id);
     goodToUpdate.label =label
     goodToUpdate.quantity =quantity
-    goodToUpdate.priceHT = priceHT
+    goodToUpdate.priceHT = parseFloat(priceHT).toFixed(2)
     goodToUpdate.updatedAt = updatedAt
     await goodToUpdate.save();
     res.redirect('/dashboard')
