@@ -6,48 +6,83 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
-<body>
-    <div class="container">
+<style>
+    .body {    
+        /* background-color: #ba9a73; */
+        background-color: rgb(220, 190, 140);
+    }
+</style>
+<body class="body" >
 
-        <div class="position-relative mt-3 mb-5">
-            <h1 class="text-center text-uppercase">LISTE DES BIENS</h1>
-            <div class="position-absolute top-0 end-0 mt-2">
-                <a href="/logout" class="btn btn-outline-dark">
-                    ME DECONNECTER
-                </a>
+        <div class="row p-2 bg-image" style="background-image: url(https://www.alsaeci.com/wp-content/uploads/2022/01/marquage-gestion-stocks-carton-focus.jpg.webp)">
+            <div class="col-3">
+                <img src="<%=logo %>" alt="logo-entreprise" style=" height: 200px" class="img-fluid ml-5">  
             </div>
+            <div class="col-6">
+                <p class="text-center text-white mt-4" style="font-size: 4em; font-family: cursive;">GestMag</p>
+            </div>     
+            <div class="col-3">     
+                <div class="text-end">
+                    <a href="/logout" class="btn btn-secondary">
+                        ME DECONNECTER
+                    </a>
+                </div>        
+            </div>     
         </div>
-    
-        <div class="text-end mb-2 mt-5">
-            <a class="btn btn-success" href="/good/new">NOUVEAU</a>
-        </div>
-    
-        <table class="table mb-4">
-            <thead class="table-dark">
-            <tr>
-                <th scope="col">Label</th>
-                <th scope="col">PrixHT</th>
-                <th scope="col">Quantity</th>
-                <!-- <th scope="col">Type</th>
-                <th scope="col">Département</th> -->
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% for(const good of goods) { %>
-                <tr>
-                    <td><%= good.label %></td>
-                    <td><%= good.priceHT%> €</td>
-                    <td><%= good.quantity %></td>
-                    <td>
-                        <a class="btn btn-warning" href="/good/<%= good.id %>/edit">MODIFIER</a>
-                        <a class="btn btn-danger" href="/good/<%= good.id %>/delete">SUPPRIMER</a>
-                    </td>
+        
+        
+        <div class="container mt-5">
+            <h1 class="text-center text-uppercase" style="font-family: cursive;">LISTE DES BIENS</h1>
+            <!-- <div class="text-end mt-1">
+                <a class="btn btn-success mb-3" href="/good/new">NOUVEAU</a>
+            </div> -->
+        <% if (goods.length > 0) { %>
+            <table class="table mb-4 ">
+                <thead class="table-dark">
+                <tr style="font-size: large;">
+                    <th scope="col">Label</th>
+                    <th scope="col">PrixHT</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">PrixTotalHT</th>
+                    <th scope="col">Actions</th>
+                    <th scope="col"><a class="btn btn-success" href="/good/new">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                        </svg></a></th>
                 </tr>
-            <% } %>
-            </tbody>
-        </table>
-    
+                </thead>
+                <tbody >
+                <% for(const good of goods) { %>
+                    <tr style="font-size: large;">
+                        <td><%= good.label %></td>
+                        <td><%= good.priceHT%> €</td>
+                        <td><%= good.quantity %></td>
+                        <td><%= (good.priceHT*good.quantity).toFixed(2) %> €</td>
+                        <td>
+                            <a class="btn btn-warning" href="/good/<%= good.id %>/edit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg></a>
+                            <a class="btn btn-danger" href="/good/<%= good.id %>/delete"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                </svg></a>
+                            <div class="btn-group-vertical">
+                                
+                                <a href="/good/<%= good.id %>/up"class="btn btn-secondary">+1</a>
+                                <a href="/good/<%= good.id %>/down"class="btn btn-primary">-1</a>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>Aucun bien à afficher</p>
+        <% } %>
     </div>
     
 
