@@ -4,6 +4,7 @@ const good = require('../models/goodModel');
 const passport = require('passport');
 const { RedisClient } = require('redis');
 const Company = require('../models/companyModel');
+const Good = require('../models/goodModel');
 
 
 class goodController{
@@ -12,7 +13,9 @@ async showALL(request, response){
         
         const companyId = request.session.passport.user
         // console.log(companyId)
-        const goods= await good.findAll({ where: { companyId: companyId } })
+        const goods= await good.findAll({ 
+                where: { companyId: companyId } , 
+                order:[[sequelize.fn('LOWER', sequelize.col('updatedAt')), 'DESC']]})
         // const company = await Company.findAll({ where: { id: companyId } })
         const company = await Company.findByPk(companyId)
         // console.log(goods)
